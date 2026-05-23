@@ -1,0 +1,123 @@
+{
+    "title": "Zomato Restaurant Scraper",
+    "description": "Pick a city, optionally a cuisine, and how many restaurants to scrape. Results include name, phone, address, cuisines, rating, and cost for two.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "city": {
+            "title": "City",
+            "type": "string",
+            "description": "Pick the Zomato city to scrape.",
+            "editor": "select",
+            "default": "bangalore",
+            "prefill": "bangalore",
+            "enum": [
+                "bangalore", "delhi-ncr", "mumbai", "chennai", "hyderabad",
+                "kolkata", "pune", "ahmedabad", "jaipur", "lucknow",
+                "chandigarh", "noida", "gurgaon", "kochi", "goa",
+                "dehradun", "indore", "bhopal", "coimbatore", "mysore",
+                "vadodara", "visakhapatnam", "patna", "agra", "amritsar",
+                "surat", "nagpur", "kanpur", "jodhpur", "thiruvananthapuram",
+                "dubai", "abu-dhabi", "sharjah",
+                "doha", "muscat", "kuala-lumpur", "singapore", "manila", "colombo", "lisbon"
+            ],
+            "enumTitles": [
+                "Bangalore", "Delhi NCR", "Mumbai", "Chennai", "Hyderabad",
+                "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Lucknow",
+                "Chandigarh", "Noida", "Gurgaon", "Kochi", "Goa",
+                "Dehradun", "Indore", "Bhopal", "Coimbatore", "Mysore",
+                "Vadodara", "Visakhapatnam", "Patna", "Agra", "Amritsar",
+                "Surat", "Nagpur", "Kanpur", "Jodhpur", "Thiruvananthapuram",
+                "Dubai (UAE)", "Abu Dhabi (UAE)", "Sharjah (UAE)",
+                "Doha (Qatar)", "Muscat (Oman)", "Kuala Lumpur (Malaysia)", "Singapore", "Manila (Philippines)", "Colombo (Sri Lanka)", "Lisbon (Portugal)"
+            ]
+        },
+        "listingType": {
+            "title": "Listing Type",
+            "type": "string",
+            "description": "Which list of restaurants do you want?",
+            "editor": "select",
+            "default": "best-restaurants",
+            "enum": ["best-restaurants", "restaurants", "dinner", "breakfast"],
+            "enumTitles": [
+                "Best (curated top picks)",
+                "All restaurants",
+                "Dinner spots",
+                "Breakfast spots"
+            ]
+        },
+        "cuisine": {
+            "title": "Cuisine (optional)",
+            "type": "string",
+            "description": "Filter by cuisine. Leave on \"Any\" for no filter.",
+            "editor": "select",
+            "default": "",
+            "enum": [
+                "", "north-indian", "south-indian", "chinese", "italian",
+                "japanese", "thai", "mexican", "biryani", "pizza",
+                "burger", "cafes", "bakery", "continental", "mughlai",
+                "desserts", "street-food", "fast-food", "seafood",
+                "healthy-food", "beverages", "mediterranean", "lebanese", "korean", "vietnamese"
+            ],
+            "enumTitles": [
+                "— Any —", "North Indian", "South Indian", "Chinese", "Italian",
+                "Japanese", "Thai", "Mexican", "Biryani", "Pizza",
+                "Burger", "Cafes", "Bakery", "Continental", "Mughlai",
+                "Desserts", "Street Food", "Fast Food", "Seafood",
+                "Healthy Food", "Beverages", "Mediterranean", "Lebanese", "Korean", "Vietnamese"
+            ]
+        },
+        "maxRestaurants": {
+            "title": "How many restaurants?",
+            "type": "integer",
+            "description": "Cap on results per scan. Start small (20-50) and increase as needed.",
+            "editor": "number",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "scanDepth": {
+            "title": "Scan depth",
+            "type": "string",
+            "description": "Quick = restaurant URLs + names only (fast, cheap). Standard = full data (phone, address, rating, cost). Deep = full data with extra retries for blocked pages.",
+            "editor": "select",
+            "default": "standard",
+            "enum": ["quick", "standard", "deep"],
+            "enumTitles": [
+                "Quick (URLs + names only — fastest)",
+                "Standard (full data — phone, address, rating)",
+                "Deep (full data + retries for blocked pages)"
+            ]
+        },
+        "customCity": {
+            "title": "Custom city (overrides City dropdown)",
+            "type": "string",
+            "description": "City name not in the dropdown? Type it here. Examples: 'Erode', 'Tirunelveli', 'Coorg', 'Manali', 'Madurai', 'Varanasi'. Auto-converted to slug (lowercase + dashes). Tip: Zomato uses CITY URLs only — there's no state-level URL, so 'Tamil Nadu' won't work; pick a city like 'Madurai' or 'Coimbatore'.",
+            "editor": "textfield",
+            "sectionCaption": "Advanced overrides",
+            "sectionDescription": "Optional escape hatches when the dropdowns above don't have what you want."
+        },
+        "customCuisine": {
+            "title": "Custom cuisine (overrides Cuisine dropdown)",
+            "type": "string",
+            "description": "Cuisine not in the dropdown? Type it here. Examples that work: 'Momos', 'Kebab', 'Hyderabadi', 'Awadhi'. Auto-converted to slug. Note: Zomato only has CUISINE CATEGORIES — specific dishes like 'Dahi Puri' or 'Tandoor' won't have their own URL (those aren't cuisine categories). For dish-level searches, use a broader category like 'Street Food' or 'North Indian'.",
+            "editor": "textfield"
+        },
+        "customUrl": {
+            "title": "Custom URL (full override)",
+            "type": "string",
+            "description": "Paste any Zomato listing URL. Overrides every dropdown + custom field above. Example: https://www.zomato.com/dehradun/restaurants/biryani.",
+            "editor": "textfield"
+        },
+        "timeoutSeconds": {
+            "title": "Run timeout (seconds)",
+            "type": "integer",
+            "description": "Hard kill the scan after this many seconds. Default 1800 (30 min) handles most multi-city scans.",
+            "editor": "number",
+            "default": 1800,
+            "minimum": 60,
+            "maximum": 7200
+        }
+    },
+    "required": ["city"]
+}

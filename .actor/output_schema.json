@@ -1,0 +1,14 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Zomato Restaurant Scraper Output",
+    "description": "One dataset record per scraped Zomato restaurant (name, URL, phone, address, cuisines, rating, cost for two, city, area) plus a final summary record with aggregate counts and the source URL.",
+    "type": "object",
+    "properties": {
+        "restaurants": {
+            "type": "string",
+            "title": "Restaurants",
+            "description": "Restaurant records (recordType=restaurant) plus a final summary record (recordType=summary). Filter by recordType=restaurant for clean table view.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

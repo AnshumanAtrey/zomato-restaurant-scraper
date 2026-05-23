@@ -1,0 +1,47 @@
+{
+    "actorSpecification": 1,
+    "name": "zomato-restaurant-scraper",
+    "title": "Zomato Restaurant Scraper - City, Cuisine, Contact",
+    "description": "Scrape restaurants from any Zomato city page. Each restaurant pushed as one structured record: name, slug, URL, phone, address (when available), cuisines, rating, cost for two. Built for B2B sales, food-tech research, and competitor intelligence.",
+    "version": "1.0",
+    "buildTag": "latest",
+    "categories": ["ECOMMERCE", "AUTOMATION"],
+    "input": "./INPUT_SCHEMA.json",
+    "output": "./output_schema.json",
+    "dockerfile": "../Dockerfile",
+    "readme": "../README.md",
+    "storages": {
+        "dataset": {
+            "actorSpecification": 1,
+            "title": "Zomato Restaurants",
+            "views": {
+                "restaurants": {
+                    "title": "Restaurants",
+                    "transformation": {
+                        "fields": ["name", "url", "phone", "address", "cuisines", "rating", "costForTwo", "city", "area", "timestamp"]
+                    },
+                    "display": {
+                        "component": "table",
+                        "properties": {
+                            "name":       { "label": "Name",        "format": "text" },
+                            "url":        { "label": "Zomato URL",  "format": "link" },
+                            "phone":      { "label": "Phone",       "format": "text" },
+                            "address":    { "label": "Address",     "format": "text" },
+                            "cuisines":   { "label": "Cuisines",    "format": "text" },
+                            "rating":     { "label": "Rating",      "format": "text" },
+                            "costForTwo": { "label": "Cost for 2",  "format": "text" },
+                            "area":       { "label": "Area",        "format": "text" },
+                            "city":       { "label": "City",        "format": "text" }
+                        }
+                    }
+                },
+                "summary": {
+                    "title": "Run Summary",
+                    "transformation": {
+                        "fields": ["recordType", "city", "sourceUrl", "restaurantsFound", "fieldsExtracted", "duration", "timestamp"]
+                    }
+                }
+            }
+        }
+    }
+}
