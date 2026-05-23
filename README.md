@@ -1,5 +1,8 @@
 # Zomato Restaurant Scraper
 
+📦 **Open source · MIT:** [github.com/AnshumanAtrey/zomato-restaurant-scraper](https://github.com/AnshumanAtrey/zomato-restaurant-scraper)
+
+
 Scrape restaurant listings from [Zomato](https://www.zomato.com) by city and cuisine. Get structured records with **name, phone, address, cuisines, rating, and cost for two** — no Zomato account required.
 
 Built for B2B sales teams, food-tech researchers, ghost-kitchen operators, lead-gen agencies, and competitor intelligence.
