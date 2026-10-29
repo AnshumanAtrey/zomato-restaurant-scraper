@@ -92,7 +92,7 @@ const proxyConfiguration = await Actor.createProxyConfiguration({ groups: ['RESI
 // only it is 0.76 MB and still lists every restaurant (measured 2026-10-30: 56 to 68 found, 1.2 s).
 const FIRST_PARTY = /(^|\.)(zomato\.com|zmtcdn\.com)$/;
 const BLOCKED_TYPES = new Set(['image', 'media', 'font']);
-async function leanListingPage({ page }, gotoOptions) {
+async function leanListingPage({ page }) {
     await page.setRequestInterception(true);
     page.on('request', (req) => {
         let host = '';
@@ -100,8 +100,8 @@ async function leanListingPage({ page }, gotoOptions) {
         if (BLOCKED_TYPES.has(req.resourceType()) || (host && !FIRST_PARTY.test(host))) return req.abort();
         return req.continue();
     });
-    // The handler waits for the restaurant links itself, so there is no need to wait for the load event.
-    gotoOptions.waitUntil = 'domcontentloaded';
+    // Navigation still waits for the load event: on a slow proxy a DOMContentLoaded wait let the scroll loop
+    // give up before Zomato's scripts ran, at the 8 server-rendered restaurants of 50 (beta 1.0.18, 2026-10-30).
 }
 
 const stats = { listingsProcessed: 0, restaurantsFound: 0, restaurantsScraped: 0, failures: 0 };
