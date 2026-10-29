@@ -1,0 +1,38 @@
+{
+  "$comment": "Example tasks published on the Store by scripts/publish-tasks.mjs after every deploy (CI only). Each one is a search people type, with its own Google-indexed landing page and .md (manager/rules/SEO.md).",
+  "options": {
+    "build": "latest",
+    "memoryMbytes": 1024,
+    "timeoutSecs": 3600
+  },
+  "tasks": [
+    {
+      "name": "best-restaurants-bangalore-zomato",
+      "title": "Best restaurants in Bangalore from Zomato, with phone numbers",
+      "description": "Get Zomato's best restaurants in Bangalore with name, phone, address, cuisines, rating and cost for two, one row per restaurant, ready for CSV or a CRM. Pick another city such as Mumbai, Delhi NCR, Hyderabad or Chennai, or paste any Zomato city URL.",
+      "input": {
+        "city": "bangalore",
+        "listingType": "best-restaurants",
+        "maxRestaurants": 50
+      },
+      "seoTitle": "Best Restaurants in Bangalore - Zomato Scraper",
+      "seoDescription": "Zomato's best restaurants in Bangalore with phone, address, cuisines, rating and cost for two. Any Indian city. Export to CSV or a CRM for B2B sales.",
+      "inputSchemaFields": ["city", "listingType", "maxRestaurants", "cuisine"],
+      "datasetView": "restaurants"
+    },
+    {
+      "name": "zomato-restaurant-leads-mumbai",
+      "title": "Zomato restaurant leads in Mumbai: phones, addresses, ratings",
+      "description": "Build a restaurant lead list for Mumbai from Zomato: each restaurant's phone number, address, cuisines, rating and price level, for food-tech sales, POS and delivery outreach, or market research. Choose a cuisine to narrow it down.",
+      "input": {
+        "city": "mumbai",
+        "listingType": "restaurants",
+        "maxRestaurants": 100
+      },
+      "seoTitle": "Zomato Restaurant Leads Mumbai - Phones and Address",
+      "seoDescription": "A Mumbai restaurant lead list from Zomato: phone, address, cuisines, rating and price level per restaurant, for food-tech sales and research.",
+      "inputSchemaFields": ["city", "listingType", "cuisine", "maxRestaurants"],
+      "datasetView": "restaurants"
+    }
+  ]
+}

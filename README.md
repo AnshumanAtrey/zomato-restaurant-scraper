@@ -87,7 +87,7 @@ Uses **Apify Residential Proxy** to avoid rate-limit issues.
 
 ## Pricing
 
-**$0.005 per restaurant record.** A typical 50-restaurant scan costs ~$0.26.
+**$0.005 per restaurant record.** A typical 50-restaurant scan costs ~$0.26. On paid Apify plans a record is $0.0045 on Scale and $0.004 on Business and above.
 
 | Scan size | Approx cost |
 |---|---|

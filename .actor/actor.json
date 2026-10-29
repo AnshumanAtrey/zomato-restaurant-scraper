@@ -2,7 +2,7 @@
     "actorSpecification": 1,
     "name": "zomato-restaurant-scraper",
     "title": "Zomato Restaurant Scraper - City, Cuisine, Contact",
-    "description": "Scrape restaurants from any Zomato city page. Each restaurant pushed as one structured record: name, slug, URL, phone, address (when available), cuisines, rating, cost for two. Built for B2B sales, food-tech research, and competitor intelligence.",
+    "description": "Scrape restaurants from any Zomato city page. Each restaurant pushed as one record with name, phone, address, cuisines, rating, cost for two. Built for B2B sales, food-tech research, ghost kitchen analysis, and restaurant competitor intelligence.",
     "version": "1.0",
     "buildTag": "latest",
     "categories": ["ECOMMERCE", "AUTOMATION"],
