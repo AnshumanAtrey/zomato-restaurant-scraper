@@ -15,7 +15,7 @@ Built for B2B sales teams, food-tech researchers, ghost-kitchen operators, lead-
 4. **Set how many restaurants** you want (default 50, up to 1000)
 5. Click **Run**
 
-Typical 50-restaurant scan completes in 3-7 minutes.
+A 50-restaurant scan takes one to one and a half minutes on Apify at the default 1 GB of memory (63 to 90 seconds in three runs, 2026-10-30).
 
 ## What you get
 
@@ -87,7 +87,7 @@ Uses **Apify Residential Proxy** to avoid rate-limit issues.
 
 ## Pricing
 
-**$0.005 per restaurant record.** A typical 50-restaurant scan costs ~$0.26. On paid Apify plans a record is $0.0045 on Scale and $0.004 on Business and above.
+**$0.005 per restaurant record.** A typical 50-restaurant scan costs ~$0.26: 50 restaurant records plus the run's one summary record, which is charged as a record too. On paid Apify plans a record is $0.0045 on Scale and $0.004 on Business and above.
 
 | Scan size | Approx cost |
 |---|---|
@@ -136,8 +136,8 @@ Scrapes only publicly visible data on Zomato. You are responsible for complying 
   "slug": "truffles-st-marks-road-central-bangalore",
   "phone": "+91 80 4111 2400",
   "address": "22, St Marks Road, Bangalore",
-  "cuisines": ["American", "Burger", "Continental"],
-  "rating": 4.5,
+  "cuisines": "American, Burger, Continental",
+  "rating": "4.5",
   "costForTwo": "₹800",
   "city": "bangalore",
   "area": "Central Bangalore",

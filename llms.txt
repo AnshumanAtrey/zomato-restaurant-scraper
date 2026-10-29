@@ -1,0 +1,103 @@
+# Zomato Restaurant Scraper - City, Cuisine, Contact
+
+> Scrape restaurants from any Zomato city page.
+
+## Summary
+
+Zomato Restaurant Scraper is an Apify actor that turns a Zomato city listing into structured restaurant records: name, phone, address, cuisines, rating, cost for two, area and the Zomato URL. Pick one of 40 cities (India, UAE, Qatar, Oman, Malaysia, Singapore, the Philippines, Sri Lanka, Portugal) or type any other Zomato city, optionally filter by cuisine, and set how many restaurants you want, up to 1,000. No Zomato account is needed. It reads the listing in a browser and each restaurant's page over plain HTTP, through Apify's residential proxy.
+
+Store: https://apify.com/anshumanatrey/zomato-restaurant-scraper
+Source: https://github.com/AnshumanAtrey/zomato-restaurant-scraper
+
+## Key features
+
+- One record per restaurant: name, phone, address, cuisines, rating, cost for two, area, city, URL and slug.
+- 40 cities in the dropdown, any other Zomato city through Custom city, and any Zomato listing URL through Custom URL.
+- 24 cuisine filters in the dropdown and any other Zomato cuisine category through Custom cuisine.
+- Falls back to the city's /restaurants listing when /best-restaurants has nothing, as in smaller cities.
+- Quick depth returns restaurant URLs and names only; Standard (the default) returns every field.
+- One summary record per run: restaurants found and scraped, failures, duration and source URLs.
+
+## Input keys
+
+- City (city): one of 40 Zomato cities, bangalore by default.
+- Listing Type (listingType): best-restaurants (the default), restaurants, dinner or breakfast.
+- Cuisine (optional) (cuisine): one of 24 cuisine categories, or empty for all.
+- How many restaurants? (maxRestaurants): 1 to 1,000, 50 by default.
+- Scan depth (scanDepth): quick, standard (the default) or deep.
+- Custom city (overrides City dropdown) (customCity): any Zomato city name, slugified automatically.
+- Custom cuisine (overrides Cuisine dropdown) (customCuisine): any Zomato cuisine category.
+- Custom URL (full override) (customUrl): a Zomato listing URL, which overrides every field above.
+- Run timeout (seconds) (timeoutSeconds): 1800 by default.
+
+## Pricing
+
+PAY_PER_EVENT model, platform usage included:
+
+- $0.005 per restaurant record. Each run's one summary record is charged as a record too.
+- On paid Apify plans a record is $0.0045 on Scale and $0.004 on Business and above.
+
+Typical costs (Free and Starter price):
+
+- 20 restaurants: $0.10
+- 50 restaurants: ~$0.26
+- 100 restaurants: $0.50
+- 1,000 restaurants: $5.00
+
+## When to use
+
+- Build a B2B lead list of restaurants with phone numbers and addresses in one city.
+- Pull every restaurant of one cuisine in a city, such as biryani in Hyderabad.
+- Food-tech, ghost-kitchen and competitor research by city, area, cuisine, rating and price for two.
+- Scrape a Zomato listing URL you already have.
+
+## When NOT to use
+
+- The user needs menus or dish prices: the actor returns restaurant listings, not menus.
+- The user wants a whole state: Zomato has city pages only, so pick the state's cities.
+- The user needs reviews or review text: they are not collected.
+
+## Sample input
+
+```json
+{
+  "city": "bangalore",
+  "listingType": "best-restaurants",
+  "maxRestaurants": 50,
+  "scanDepth": "standard"
+}
+```
+
+## Sample output (one record)
+
+```json
+{
+  "recordType": "restaurant",
+  "name": "Truffles",
+  "url": "https://www.zomato.com/bangalore/truffles-st-marks-road-central-bangalore/info",
+  "slug": "truffles-st-marks-road-central-bangalore",
+  "phone": "+91 80 4111 2400",
+  "address": "22, St Marks Road, Bangalore",
+  "cuisines": "American, Burger, Continental",
+  "rating": "4.5",
+  "costForTwo": "₹800",
+  "city": "bangalore",
+  "area": "Central Bangalore",
+  "timestamp": "2026-05-22T09:43:18Z"
+}
+```
+
+## Documentation
+
+- Apify Store: https://apify.com/anshumanatrey/zomato-restaurant-scraper
+- GitHub repo: https://github.com/AnshumanAtrey/zomato-restaurant-scraper
+- Issues / feedback: GitHub Issues on the above repo
+- License: MIT
+
+## Maintainer
+
+Anshuman Atrey (https://github.com/AnshumanAtrey), who publishes a portfolio of data and OSINT actors on Apify Store. Feature requests and bugs: LinkedIn (https://linkedin.com/in/anshumanatrey, fastest), GitHub issues, or atrey.dev.
+
+## Last updated
+
+2026-10-30
