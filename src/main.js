@@ -86,6 +86,24 @@ const startTime = Date.now();
 // Apify Residential Proxy is ALWAYS on — user shouldn't need to know about proxies
 const proxyConfiguration = await Actor.createProxyConfiguration({ groups: ['RESIDENTIAL'] });
 
+// The listing needs Zomato's own HTML and scripts and nothing else. Its full load is 2.8 MB, half of
+// it Google Tag Manager, plus Facebook, Google sign-in and analytics scripts, images and fonts; all of
+// that crossed the paid residential proxy and held each navigation near its 60 s timeout. First-party
+// only it is 0.76 MB and still lists every restaurant (measured 2026-10-30: 56 to 68 found, 1.2 s).
+const FIRST_PARTY = /(^|\.)(zomato\.com|zmtcdn\.com)$/;
+const BLOCKED_TYPES = new Set(['image', 'media', 'font']);
+async function leanListingPage({ page }, gotoOptions) {
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+        let host = '';
+        try { host = new URL(req.url()).hostname; } catch { /* data: and blob: URLs have no host and stay */ }
+        if (BLOCKED_TYPES.has(req.resourceType()) || (host && !FIRST_PARTY.test(host))) return req.abort();
+        return req.continue();
+    });
+    // The handler waits for the restaurant links itself, so there is no need to wait for the load event.
+    gotoOptions.waitUntil = 'domcontentloaded';
+}
+
 const stats = { listingsProcessed: 0, restaurantsFound: 0, restaurantsScraped: 0, failures: 0 };
 
 const cityFromUrl = (url) => {
@@ -112,6 +130,7 @@ const listingCrawler = new PuppeteerCrawler({
             args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
         },
     },
+    preNavigationHooks: [leanListingPage],
     navigationTimeoutSecs: 60,
     requestHandlerTimeoutSecs: 240,
     maxRequestRetries: 2,
@@ -192,6 +211,7 @@ if (detailUrls.length === 0 && fallbackUrl) {
     const fallbackCrawler = new PuppeteerCrawler({
         proxyConfiguration,
         launchContext: { launchOptions: { args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] } },
+        preNavigationHooks: [leanListingPage],
         navigationTimeoutSecs: 60,
         requestHandlerTimeoutSecs: 240,
         maxRequestRetries: 2,
@@ -350,7 +370,10 @@ if (skipRestaurantDetails) {
                 const text = cleanText($(el).text());
                 if (text.toLowerCase() === 'cuisines' && !cuisines) {
                     const sibling = $(el).next();
-                    const sibText = cleanText(sibling.text());
+                    // Each cuisine is its own link; the block's text runs them together
+                    // ("ItalianPizzaPasta" on 48 of 50 rows, 2026-10-30), so join the links' names.
+                    const names = sibling.find('a').map((_, a) => cleanText($(a).attr('title') || $(a).text())).get().filter(Boolean);
+                    const sibText = names.length ? names.join(', ') : cleanText(sibling.text());
                     if (sibText && sibText.length < 500) cuisines = sibText;
                 }
             });
