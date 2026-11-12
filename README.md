@@ -7,6 +7,13 @@ Scrape restaurant listings from [Zomato](https://www.zomato.com) by city and cui
 
 Built for B2B sales teams, food-tech researchers, ghost-kitchen operators, lead-gen agencies, and competitor intelligence.
 
+**Use it from an AI assistant:**
+
+- **Claude** (claude.ai and the desktop app): [Add Zomato Restaurant Scraper to Claude](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Zomato%20Restaurant%20Scraper&connectorUrl=https%3A%2F%2Fmcp.apify.com%3Ftools%3Danshumanatrey%2Fzomato-restaurant-scraper), click Continue, sign in to Apify, Allow, and ask in plain words.
+- **Claude Code:** `claude mcp add --transport http zomato-restaurant-scraper "https://mcp.apify.com?tools=anshumanatrey/zomato-restaurant-scraper"`, then run `/mcp` to sign in to Apify.
+- **Codex:** `codex mcp add zomato-restaurant-scraper --url "https://mcp.apify.com?tools=anshumanatrey/zomato-restaurant-scraper"`, then `codex mcp login zomato-restaurant-scraper`.
+- **Any other MCP client:** `https://mcp.apify.com?tools=anshumanatrey/zomato-restaurant-scraper`, signed in with Apify or an `Authorization: Bearer <APIFY_TOKEN>` header.
+
 ## Quick start
 
 1. **Pick a City** from the dropdown (Bangalore, Delhi NCR, Mumbai, Dubai, Singapore, etc. — 40 cities)
